@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Navbar from './Navbar'
+import './Layout.sass'
 
 export default class Layout extends Component {
 
@@ -11,7 +12,9 @@ export default class Layout extends Component {
     const className = `Layout ${this.props.className||''}`
     return <div className={className}>
       <Navbar session={this.props.session} />
-      {this.props.children}
+      <div className="Layout-content">
+        {this.props.children}
+      </div>
     </div>
   }
 }
