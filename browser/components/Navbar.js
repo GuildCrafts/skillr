@@ -11,14 +11,16 @@ export default class Navbar extends Component {
 
   render(){
     const { user } = this.props.session
-    if (user)
-      return <div className="Navbar">
-        Welcome back {user.name}
+    return <div className="Navbar">
+      <div>
+        <Button type={false} href="/">Skillr</Button>
+        &nbsp;
+        <Button type={false} href="/skills">skills</Button>
+      </div>
+      <div>
+        <span>Welcome back {user.name}</span>
         <Button onClick={logout}>Logout</Button>
       </div>
-
-    return <div className="Navbar">
-      <Button href="/login">Login or Signup</Button>
     </div>
   }
 }

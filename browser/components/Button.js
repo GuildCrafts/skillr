@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Link from './Link'
 import './Button.sass'
 
 class Button extends Component {
@@ -37,7 +38,7 @@ class Button extends Component {
       props.className += ' Button-nofocus'
     }
     return props.href ?
-      <a ref="button" {...props}>{this.props.children}</a> :
+      <Link ref="button" {...props}>{this.props.children}</Link> :
       <button ref="button" {...props}>{this.props.children}</button>
   }
 }
