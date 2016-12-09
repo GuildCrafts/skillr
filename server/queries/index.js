@@ -14,7 +14,14 @@ function getUserById({id}){
     .first()
 }
 
+function skills(){
+  return knex
+    .table('skills')
+    .select('*')
+}
+
 export default {
   users,
   getUserById,
+  skills,
 }

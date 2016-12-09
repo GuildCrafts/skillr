@@ -7,7 +7,7 @@ export default class LoggedOutHomePage extends Component {
   render(){
     return <div className="LoggedOutHomePage">
       <h1>Skillr</h1>
-      <Button href="/login">Login or Signup</Button>
+      <Button href="/login" externalLink>Login or Signup</Button>
     </div>
   }
 }
