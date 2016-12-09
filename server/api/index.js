@@ -22,6 +22,15 @@ router.get('/skills', (req, res, next) => {
     })
     .catch(next)
 });
+
+router.get('/skills/export', (req, res, next) => {
+  queries.skills()
+    .then(skills => {
+      res.attachment(`skills.json`)
+      res.json(skills)
+    })
+    .catch(next)
+});
 // router.get('/:query', (req, res, next) => {
 //   const { query } = req.params
 //   console.log(queries)
