@@ -24,19 +24,13 @@ server.use(bodyParser.json({extended: true}))
 server.use(require('./authentication'))
 server.use('/api', require('./api'))
 
-server.get('/session', (request, response) => {
-  response.json({
-    user: request.session.passport.user
-  })
-});
-
 server.get('/*', (req, res, next) => {
   if (req.xhr) return next()
   res.sendFile(publicPath+'/index.html')
 });
 
 
-server.use((request, response, next) => {
+server.use((req, res, next) => {
   const error = new Error('Not Found');
   error.status = 404;
   next(error);

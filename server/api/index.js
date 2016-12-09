@@ -4,6 +4,12 @@ import commands from '../commands'
 import queries from '../queries'
 
 
+router.get('/session', (req, res, next) => {
+  res.json({
+    user: req.session.passport.user
+  })
+});
+
 
 // router.get('/:query', (req, res, next) => {
 //   const { query } = req.params
@@ -34,7 +40,7 @@ router.use((req, res, next) => {
 
 router.use((error, req, res, next) => {
   const stack = process.env.NODE_ENV === 'development' ?
-    error.stack.split(/\n/)
+    error.stack //.split(/\n/)
   :
     null
   res.status(error.status || 500);

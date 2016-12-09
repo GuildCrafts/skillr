@@ -3,6 +3,7 @@ import Router from '../Router'
 
 import state from '../state'
 import loadSession from '../actions/loadSession'
+import InspectObject from './InspectObject'
 
 export default class Root extends Component {
 
@@ -24,7 +25,13 @@ export default class Root extends Component {
 
   render(){
     console.log('Root#render', this.state)
-    if (this.state.session) return <Router />
+    if (this.state.sessionloadError)
+      return <div>
+        <h1>ERROR:</h1>
+        <InspectObject object={this.state.sessionloadError} />
+      </div>
+    if (this.state.session)
+      return <Router />
     return <div>loading...</div>
   }
 }

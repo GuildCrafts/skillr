@@ -9,5 +9,20 @@ export default (method, path, options={}) => {
   }
 
   return fetch(path, options)
-    .then(response => response.json())
+    .then(response =>
+      response.json().then(json => {
+        response.json = json
+        if (response.ok) return response
+
+        let error
+        if (response.json.error){
+          error = new Error(response.json.error.message)
+          Object.assign(error, response.json.error)
+        }else{
+          error = new Error('request error')
+        }
+        error.response = response
+        throw error
+      })
+    )
 }
