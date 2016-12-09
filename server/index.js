@@ -25,7 +25,9 @@ server.use(require('./authentication'))
 server.use('/api', require('./api'))
 
 server.get('/session', (request, response) => {
-  response.json(request.session)
+  response.json({
+    user: request.session.passport.user
+  })
 });
 
 server.get('/*', (req, res, next) => {

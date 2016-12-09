@@ -13,6 +13,7 @@
     "passport": "^0.3.2",
     "passport-github": "^1.1.0",
     "pg": "^6.1.0",
+    "simple-react-router": "^0.0.9",
     "webappatron": "https://github.com/deadlyicon/webappatron.git"
   },
   "devDependencies": {},

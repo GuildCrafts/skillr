@@ -3265,6 +3265,12 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
 
+path-to-regexp@^1.6.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
+  dependencies:
+    isarray "0.0.1"
+
 path-type@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-1.1.0.tgz#59c44f7ee491da704da415da5a4070ba4f8fe441"
@@ -3272,6 +3278,12 @@ path-type@^1.0.0:
     graceful-fs "^4.1.2"
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
+
+pathname-router@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/pathname-router/-/pathname-router-0.0.3.tgz#7a78c0f1979e78925bac457e139c78c995cff512"
+  dependencies:
+    path-to-regexp "^1.6.0"
 
 pause-stream@0.0.11:
   version "0.0.11"
@@ -4086,6 +4098,12 @@ sha.js@2.2.6:
 signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+simple-react-router@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/simple-react-router/-/simple-react-router-0.0.9.tgz#67e8ad67bb63a15c6ae825f08ef74dd07c98ca67"
+  dependencies:
+    pathname-router "0.0.3"
 
 slash@^1.0.0:
   version "1.0.0"

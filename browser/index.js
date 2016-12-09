@@ -7,3 +7,12 @@ render(
   <Root />,
   document.querySelector('main')
 );
+
+
+// for debugging
+
+import state from './state'
+window.DEBUG = {
+  state,
+  React,
+}
