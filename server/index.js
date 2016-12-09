@@ -19,17 +19,30 @@ server.use(cookieSession({
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(express.static(publicPath))
-server.use(bodyParser.json())
+server.use(bodyParser.json({extended: true}))
 
 server.use(require('./authentication'))
+server.use('/api', require('./api'))
 
 server.get('/session', (request, response) => {
   response.json(request.session)
 });
 
-server.get('/*', (request, response) => {
-  response.sendFile(publicPath+'/index.html')
+
+server.get('/*', (req, res, next) => {
+  if (req.xhr) return next()
+  res.sendFile(publicPath+'/index.html')
 });
+
+
+server.use((request, response, next) => {
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
+});
+
+
+
 
 if (process.env.NODE_ENV !== 'test'){
   console.log('http://localhost:'+server.get('port')+'/')
