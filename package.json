@@ -3,10 +3,23 @@
   "version": "0.0.1",
   "description": "skills tracker",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-session": "^2.0.0-alpha.2",
+    "dotenv": "^2.0.0",
+    "knex": "^0.12.6",
+    "morgan": "^1.7.0",
+    "normalize.css": "^5.0.0",
+    "passport": "^0.3.2",
+    "passport-github": "^1.1.0",
+    "pg": "^6.1.0",
+    "webappatron": "https://github.com/deadlyicon/webappatron.git"
+  },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "webappatron test",
+    "start": "webappatron start",
+    "build": "webappatron build"
   },
   "repository": {
     "type": "git",
