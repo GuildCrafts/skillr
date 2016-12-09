@@ -1,7 +1,7 @@
 import express from 'express'
 import passport from 'passport'
 import queries from './queries'
-import commands, { findOrCreateUserFromGithubProfile } from './commands'
+import commands from './commands'
 const router = new express.Router()
 
 const GitHubStrategy = require('passport-github').Strategy
@@ -13,7 +13,7 @@ passport.use(new GitHubStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     console.log('GITHUB LOGIN?', accessToken, refreshToken, profile)
-    findOrCreateUserFromGithubProfile(profile)
+    commands.findOrCreateUserFromGithubProfile(profile)
       .then(user => {
         cb(undefined, user);
       })
@@ -35,10 +35,7 @@ passport.deserializeUser(function(user, done) {
 
 
 router.get('/login', passport.authenticate('github'));
-router.get('/logout', (req, res, next) => {
-  req.logout();
-  res.redirect('/')
-});
+
 
 router.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),

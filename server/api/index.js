@@ -6,10 +6,14 @@ import queries from '../queries'
 
 router.get('/session', (req, res, next) => {
   res.json({
-    user: req.session.passport.user
+    user: req.user
   })
 });
 
+router.post('/logout', (req, res, next) => {
+  req.logout();
+  res.json(null)
+});
 
 // router.get('/:query', (req, res, next) => {
 //   const { query } = req.params

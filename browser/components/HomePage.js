@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+import Layout from './Layout'
+import InspectObject from './InspectObject'
 
 export default class HomePage extends Component {
   render(){
-    return <div className="HomePage">
+    const { session } = this.props
+    return <Layout className="HomePage" session={session}>
       <h1>Skillr</h1>
-    </div>
+      <InspectObject object={this.props} />
+    </Layout>
   }
 }

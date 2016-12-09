@@ -5,6 +5,8 @@ import state from '../state'
 import loadSession from '../actions/loadSession'
 import InspectObject from './InspectObject'
 
+loadSession()
+
 export default class Root extends Component {
 
   constructor(props){
@@ -12,7 +14,6 @@ export default class Root extends Component {
     this.state = state.get()
     this.update = this.update.bind(this)
     state.subscribe(this.update)
-    loadSession()
   }
 
   componentWillUnmount(){
@@ -31,7 +32,7 @@ export default class Root extends Component {
         <InspectObject object={this.state.sessionloadError} />
       </div>
     if (this.state.session)
-      return <Router />
+      return <Router {...this.state} />
     return <div>loading...</div>
   }
 }

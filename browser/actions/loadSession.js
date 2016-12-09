@@ -5,7 +5,7 @@ export default function loadSession() {
   return request('get', '/api/session')
     .then(response => {
       state.set({
-        session: response.body
+        session: response.json
       })
     })
     .catch(sessionloadError => {
