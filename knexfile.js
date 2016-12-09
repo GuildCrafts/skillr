@@ -12,11 +12,11 @@ const defaultConfig = (env) => {
       max: 10
     },
     migrations: {
-      directory: __dirname + '/db/migrations',
+      directory: __dirname + '/build/server/database/migrations',
       tableName: 'migrations'
     },
     seeds: {
-      directory: __dirname + `/db/seeds/${env}`
+      directory: __dirname + `/build/server/database/seeds/${env}`
     }
   }
 }
