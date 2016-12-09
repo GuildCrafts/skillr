@@ -28,7 +28,6 @@ server.get('/session', (request, response) => {
   response.json(request.session)
 });
 
-
 server.get('/*', (req, res, next) => {
   if (req.xhr) return next()
   res.sendFile(publicPath+'/index.html')

@@ -1,12 +1,20 @@
-function openChest(){
-  return Promise.resolve({chest:{contents:"treasher"}})
+import knex from '../knex'
+
+function users(){
+  return knex
+    .table('users')
+    .select('*')
 }
 
-function punchGoat(){
-  return Promise.resolve({punchGoat:{ bleeding: true}})
+function getUserById({id}){
+  return knex
+    .table('users')
+    .where('id', id)
+    .select('*')
+    .first()
 }
 
 export default {
-  openChest,
-  punchGoat,
+  users,
+  getUserById,
 }

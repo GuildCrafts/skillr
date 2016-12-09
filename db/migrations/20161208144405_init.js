@@ -3,14 +3,14 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable('users', (table) =>  {
       table.increments('id').primary()
-      table.string('email').unique()
-      table.integer('github_id').unique()
-      table.string('name')
+      table.string('email').notNullable().unique()
+      table.integer('github_id').notNullable().unique()
+      table.string('name').notNullable()
       table.string('avatar_url')
       table.timestamps()
     }),
 
-  })
+  ])
 }
 
 exports.down = function(knex, Promise) {

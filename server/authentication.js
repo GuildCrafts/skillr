@@ -1,6 +1,7 @@
 import express from 'express'
 import passport from 'passport'
-// import {queries, commands} from '../database'
+import queries from './queries'
+import commands, { findOrCreateUserFromGithubProfile } from './commands'
 const router = new express.Router()
 
 const GitHubStrategy = require('passport-github').Strategy
@@ -12,24 +13,32 @@ passport.use(new GitHubStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     console.log('GITHUB LOGIN?', accessToken, refreshToken, profile)
-    cb(undefined, {id: 1234});
-    // database.commands.findOrCreateUserFromGithubProfile
-    // findOrCreateUserFromGithubProfile(profile).then, function (err, user) {
-    //   return cb(err, user);
-    // });
+    findOrCreateUserFromGithubProfile(profile)
+      .then(user => {
+        cb(undefined, user);
+      })
+      .catch(error => {
+        cb(error)
+      })
   }
 ));
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, {id: user.id});
 });
 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+  queries.getUserById({id: user.id})
+    .then( user  => done(null, user))
+    .catch(error => done(error))
 });
 
 
 router.get('/login', passport.authenticate('github'));
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  res.redirect('/')
+});
 
 router.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
