@@ -74,16 +74,23 @@ class Skill extends Component {
   render(){
     const { depth, skill } = this.props
     const { expanded } = this.state
-    const skillsTree = expanded ?
-      <SkillTree skills={skill.skills} skillId={skill.id} depth={depth+1}/> : null
+
+    let toggleButton, skillsTree
+    if (skill.skills){
+      toggleButton = <Button type={false} onClick={this.toggle}>
+        {expanded ? '-' : '+'} &nbsp;
+      </Button>
+      skillsTree = expanded ?
+        <SkillTree skills={skill.skills} skillId={skill.id} depth={depth+1}/>
+        : null
+    }
+
     const style = {
       marginLeft: (depth*10)+'px'
     }
     return <div className="SkillsPage-SkillTree-Skill" style={style}>
       <div className="SkillsPage-SkillTree-Skill-row">
-        <Button type={false} onClick={this.toggle}>
-          {expanded ? '-' : '+'}
-        </Button>
+        {toggleButton}
         <span>{skill.name}</span>
       </div>
       {skillsTree}
