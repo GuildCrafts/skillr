@@ -1,16 +1,18 @@
 // const fs = require('fs')
 // const JSON = require('JSON2')
 // const seeds = JSON.parse(fs.readFileSync(__dirname+'/seeds.json', 'utf8'))
+
 const users = [
-  {id: 14, name: 'git clone', parent_id: 0},
-  {id: 15, name: 'git shallow clone', parent_id: 14},
+
 ]
 
-
 exports.seed = (knex) =>
-  knex.transaction(tr => {
-    return knex
-      .batchInsert('users', users, 100)
-      .transacting(tr)
-  })
-
+  Promise.resolve()
+  // knex
+  //   .table('skills')
+  //   .del()
+  //   .then(_ =>
+  //     knex
+  //       .batchInsert('users', users, 100)
+  //       .transacting(tr)
+  //   )
