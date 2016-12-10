@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import Layout from './Layout'
 import Button from './Button'
+import InspectObject from './InspectObject'
 import loadSkills from '../actions/loadSkills'
+import './SkillsPage.sass'
 
 export default class SkillsPage extends Component {
   constructor(props){
@@ -9,17 +11,13 @@ export default class SkillsPage extends Component {
     loadSkills()
   }
   render(){
-    const { session } = this.props
+    const { session, skills } = this.props
 
+    const skillsTree = skills ?
+      <SkillTree skills={skills} skillId={0} />
+    :
+      <div>Loading...</div>
 
-    let skillsTree
-    if (this.props.skills) {
-      const skills = skillsArrayToTree(this.props.skills)
-      console.log('skillsArrayToTree', skills)
-      skillsTree = <SkillTree skills={skills} skillId={0} />
-    }else{
-      skillsTree = <div>Loading...</div>
-    }
     return <Layout className="SkillsPage" session={session}>
       <h1>Skills</h1>
       <Button
@@ -34,22 +32,46 @@ export default class SkillsPage extends Component {
 
 class SkillTree extends Component {
 
-  static propTypes = {
-    skillId: PropTypes.number.isRequired,
-    depth: PropTypes.number,
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+      expandedSkills: [0],
+    }
+    this.toggle = this.toggle.bind(this)
+  }
 
-  static defaultProps = {
-    depth: 0,
-  };
+  toggle(skillId){
+    let { expandedSkills } = this.state
+    if (expandedSkills.includes(skillId)){
+      expandedSkills = expandedSkills.filter(id => id !== skillId)
+    }else{
+      expandedSkills.push(skillId)
+    }
+    this.setState({expandedSkills})
+  }
 
   render(){
-    const { skillId, skills, depth } = this.props
+    const { skillId, depth } = this.props
+    const { expandedSkills } = this.state
+
+    const skills = decorateSkills(this.props.skills)
+    skills.forEach(skill => {
+      skill.expanded = expandedSkills.includes(skill.id)
+      skill.visible = expandedSkills.includes(skill.parent_id)
+    })
+
+    // return <InspectObject object={skills} />
+
     const skillNodes = skills
-      .filter(skill => skill.parent_id === skillId)
+      .filter(skill => skill.visible)
       .map(skill =>
-        <Skill key={skill.id} skill={skill} depth={depth} />
+        <Skill
+          key={skill.id}
+          skill={skill}
+          toggle={this.toggle}
+        />
       )
+
     return <div className="SkillsPage-SkillTree">
       {skillNodes}
     </div>
@@ -57,53 +79,51 @@ class SkillTree extends Component {
 }
 
 class Skill extends Component {
+
   static propTypes = {
-    skill: PropTypes.object.isRequired,
-    depth: PropTypes.number.isRequired,
+    toggle: PropTypes.func.isRequired,
+    skill: PropTypes.shape({
+      name:  PropTypes.string.isRequired,
+      depth: PropTypes.number.isRequired,
+      expanded: PropTypes.bool.isRequired,
+    }),
   };
 
-
-  constructor(props){
-    super(props)
-    this.state = {expanded: false}
-    this.toggle = this.toggle.bind(this)
-  }
-  toggle(){
-    this.setState({expanded: !this.state.expanded})
-  }
   render(){
-    const { depth, skill } = this.props
-    const { expanded } = this.state
+    const { skill, toggle } = this.props
 
-    let toggleButton, skillsTree
-    if (skill.skills){
-      toggleButton = <Button type={false} onClick={this.toggle}>
-        {expanded ? '-' : '+'} &nbsp;
+    const toggleButton = skill.children ?
+      <Button
+        className="SkillsPage-SkillTree-Skill-toggle"
+        type={false}
+        onClick={_ => toggle(skill.id) }
+      >
+        {skill.expanded ? '-' : '+'}
       </Button>
-      skillsTree = expanded ?
-        <SkillTree skills={skill.skills} skillId={skill.id} depth={depth+1}/>
-        : null
+    :
+      <span className="SkillsPage-SkillTree-Skill-toggle"></span>
+    const style = {
+      paddingLeft: (skill.depth*10)+'px'
     }
 
-    const style = {
-      marginLeft: (depth*10)+'px'
-    }
     return <div className="SkillsPage-SkillTree-Skill" style={style}>
-      <div className="SkillsPage-SkillTree-Skill-row">
-        {toggleButton}
-        <span>{skill.name}</span>
-      </div>
-      {skillsTree}
+      {toggleButton}
+      <div className="SkillsPage-SkillTree-Skill-name">{skill.name}</div>
     </div>
   }
 }
 
-
-const skillsArrayToTree = (allSkills, parent_id=0) => {
-  const skills = allSkills.filter(skill => skill.parent_id === parent_id)
-  if (skills.length === 0) return null
+const decorateSkills = (skills) => {
+  skills = skills.map(skill => Object.assign({}, skill))
   skills.forEach(skill => {
-    skill.skills = skillsArrayToTree(allSkills, skill.id)
+    skill.parent = skills.find(s => s.id === skill.parent_id)
+    skill.children = skills.find(s => s.parent_id === skill.id)
+  })
+  skills.forEach(skill => {
+    let depth = 0, parent = skill.parent
+    while(parent){ depth++; parent = parent.parent}
+    skill.depth = depth
   })
   return skills
 }
+
