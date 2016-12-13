@@ -1,5 +1,6 @@
 import moment from 'moment'
 import React, { Component, PropTypes } from 'react'
+import Icon from './Icon'
 import './SkillsTable.sass'
 
 
@@ -14,19 +15,19 @@ export default class SkillsTable extends Component {
 
     const skillIds = rankings.map(ranking => ranking.skill_id)
     const ourSkills = skills.filter(skill => skillIds.includes(skill.id))
-    const today = moment().startOf('day')
-    const firstDay = moment.min(rankings.map(ranking => moment(ranking.at))).startOf('day')
+    const thisWeek = moment().startOf('week')
+    const firstWeek = moment.min(rankings.map(ranking => moment(ranking.at))).startOf('week')
 
-    let numberOfDays = today.diff(firstDay, 'days')
+    let numberOfWeeks = thisWeek.diff(firstWeek, 'weeks')
 
-    let days = []
-    while (numberOfDays > -1){
-      days.push(firstDay.clone().add(numberOfDays--, 'days'))
+    let weeks = []
+    while (numberOfWeeks > -1){
+      weeks.push(firstWeek.clone().add(numberOfWeeks--, 'weeks'))
     }
 
     const headers = [<th key="skill">Skill</th>].concat(
-      days.map(day =>
-        <th key={day.valueOf()}>{day.format('DD/MM')}</th>
+      weeks.map(week =>
+        <th key={week.valueOf()}>{week.format('DD/MM')}</th>
       )
     )
 
@@ -35,9 +36,9 @@ export default class SkillsTable extends Component {
       const rankingsForSkill = rankings.filter(ranking =>
         ranking.skill_id === skill.id
       )
-      const rankingColumns = days.reverse().map(day => {
-        const ranking = latestRanking = rankingsForSkill.find(r => moment(r.at).startOf('day').diff(day, 'days') === 0) || latestRanking
-        return <td key={day.valueOf()}><SillRanking ranking={ranking} /></td>
+      const rankingColumns = weeks.reverse().map(week => {
+        const ranking = latestRanking = rankingsForSkill.find(r => moment(r.at).startOf('week').diff(week, 'weeks') === 0) || latestRanking
+        return <td key={week.valueOf()}><SillRanking ranking={ranking} /></td>
       }).reverse()
       return <tr key={skill.id}>
         <td className="SkillsTable-skill-name"><div>{skill.name}</div></td>
@@ -56,15 +57,34 @@ export default class SkillsTable extends Component {
   }
 }
 
+const rankNames = [
+  'Never Seen It',
+  'Seen It',
+  'Can do it with help',
+  'Can do it alone',
+  'Can teach it',
+  'Master',
+]
+
+const rankIcons = [
+  'eye-slash',
+  'eye',
+  'user-plus',
+  'user',
+  'user-md',
+]
 
 const SillRanking = props => {
   const value = props.ranking ? props.ranking.value : 0
-  return <select value={value}>
-    <option value={0}>Never Seen It</option>
-    <option value={1}>Seen It</option>
-    <option value={2}>Can do it with help</option>
-    <option value={3}>Can do it alone</option>
-    <option value={4}>Can teach it</option>
-    <option value={5}>Master</option>
-  </select>
+  const rankIcon = rankIcons[value]
+  const rankName = rankNames[value]
+  const options = rankNames.map((rankName, value) =>
+    <option key={value} value={value}>{rankName}</option>
+  )
+  return <div className="SkillsTable-SillRanking">
+    <Icon type={rankIcon} size={2} title={rankName} />
+    <select value={value} onChange={()=>{}}>
+      {options}
+    </select>
+  </div>
 }
