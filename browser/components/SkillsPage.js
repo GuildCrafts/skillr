@@ -18,6 +18,7 @@ export default class SkillsPage extends Component {
 
     const skillsTree = skills && rankings ?
       <SkillsTable
+        session={session}
         skills={skills}
         rankings={rankings}
       />

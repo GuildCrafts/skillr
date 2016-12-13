@@ -1,6 +1,32 @@
 .SkillsTable
-
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
   white-space: nowrap
+
+  &-column
+    display: flex
+    flex-direction: column
+    flex-wrap: nowrap
+
+  &-cell
+    outline: 1px dotted green
+
+  &-rankings
+    flex: 1 1 auto
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    overflow: auto
+    justify-content: flex-start
+    align-items: flex-start
+
+    .SkillsTable-column
+      flex: 0 0 100px
+
+    .SkillsTable-cell
+      text-align: center
+
   // &-skill-name
   //   > div
   //     white-space: nowrap
