@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Button from './Button'
+import Avatar from './Avatar'
 import './Navbar.sass'
 import logout from '../actions/logout'
 
@@ -19,6 +20,7 @@ export default class Navbar extends Component {
       </div>
       <div>
         <span>Welcome back {user.name}</span>
+        <Avatar user={user} />
         <Button onClick={logout}>Logout</Button>
       </div>
     </div>

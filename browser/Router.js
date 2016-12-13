@@ -10,7 +10,6 @@ import LoggedOutHomePage from './components/LoggedOutHomePage'
 
 export default class Router extends SimpleReactRouter {
   getRoutes(map, props){
-    console.log('eh?')
     const { session } = props
     if (session.user){
       map('/',       LoggedInHomePage)

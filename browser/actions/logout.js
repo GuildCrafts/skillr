@@ -1,6 +1,7 @@
 import request from '../request'
 import state from '../state'
 import loadSession from './loadSession'
+
 export default function logout() {
   return request('post', '/api/logout')
     .catch(logoutError => {

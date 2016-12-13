@@ -1,15 +1,18 @@
 import request from '../request'
 import state from '../state'
+import loadUserData from './loadUserData'
 
 export default function loadSession() {
   return request('get', '/api/session')
     .then(response => {
+      const session = response.json
       state.set({
-        session: response.json,
-        sessionloadError: null,
+        session,
+        loadSessionError: null,
       })
+      // if (session.user) loadUserData()
     })
-    .catch(sessionloadError => {
-      state.set({sessionloadError})
+    .catch(loadSessionError => {
+      state.set({loadSessionError})
     })
 }

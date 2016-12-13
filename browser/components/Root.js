@@ -25,11 +25,11 @@ export default class Root extends Component {
   }
 
   render(){
-    console.log('Root#render', this.state)
-    if (this.state.sessionloadError)
+    console.info('Root#render', this.state)
+    if (this.state.loadSessionError)
       return <div>
         <h1>ERROR:</h1>
-        <InspectObject object={this.state.sessionloadError} />
+        <InspectObject object={this.state.loadSessionError} />
       </div>
     if (this.state.session)
       return <Router {...this.state} />

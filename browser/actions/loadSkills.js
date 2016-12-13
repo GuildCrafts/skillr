@@ -6,10 +6,10 @@ export default function loadSkills() {
     .then(response => {
       state.set({
         skills: response.json,
-        skillsLoadError: null,
+        loadSkillsError: null,
       })
     })
-    .catch(skillsLoadError => {
-      state.set({skillsLoadError})
+    .catch(loadSkillsError => {
+      state.set({loadSkillsError})
     })
 }
