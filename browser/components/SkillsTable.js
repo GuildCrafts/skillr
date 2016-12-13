@@ -21,15 +21,8 @@ export default class SkillsTable extends Component {
 
     let days = []
     while (numberOfDays > -1){
-      days.unshift(firstDay.clone().add(numberOfDays--, 'days'))
+      days.push(firstDay.clone().add(numberOfDays--, 'days'))
     }
-
-    // const tabular = skills.map(skill => {
-    //   const rankingsByDay = days.map(day =>
-    //     rankings.find(r => moment(r.at).startOf('day').diff(day, 'days') === 0)
-    //   )
-    //   return { skill, rankings: rankingsByDay }
-    // })
 
     const headers = [<th key="skill">Skill</th>].concat(
       days.map(day =>
@@ -42,10 +35,10 @@ export default class SkillsTable extends Component {
       const rankingsForSkill = rankings.filter(ranking =>
         ranking.skill_id === skill.id
       )
-      const rankingColumns = days.map(day => {
+      const rankingColumns = days.reverse().map(day => {
         const ranking = latestRanking = rankingsForSkill.find(r => moment(r.at).startOf('day').diff(day, 'days') === 0) || latestRanking
         return <td key={day.valueOf()}><SillRanking ranking={ranking} /></td>
-      })
+      }).reverse()
       return <tr key={skill.id}>
         <td className="SkillsTable-skill-name"><div>{skill.name}</div></td>
         {rankingColumns}
@@ -60,21 +53,6 @@ export default class SkillsTable extends Component {
         {rows}
       </tbody>
     </table>
-
-    // console.log(tabular)
-    // return <InspectObject object={tabular} />
-
-    // const skillRows = skills.map(skill =>
-    //   <SkillTableRow
-    //     key={skill.id}
-    //     skill={skill}
-    //     rankings={rankings.filter(r => r.skill_id === skill.id)}
-    //   />
-    // )
-
-    // return <div className="SkillsPage-SkillTable">
-    //   {skillRows}
-    // </div>
   }
 }
 
