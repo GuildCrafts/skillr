@@ -22,14 +22,11 @@ function skills(){
 
 function getUserData(userId){
   return Promise.all([
-    getUserById(userId),
-    getRankingsAndSillsForUser(userId),
+    getRankingsForUser(userId),
     getHiddenSkillsForUser(userId),
-  ]).then(([user, {rankings, skills}, hiddenSkills]) => {
-    user.rankings = rankings
-    user.hiddenSkills = hiddenSkills
-    return user
-  })
+  ]).then(([rankings, hiddenSkills]) => (
+    {rankings, hiddenSkills}
+  ))
 }
 
 function getRankingsForUser(userId){
@@ -46,24 +43,9 @@ function getHiddenSkillsForUser(userId){
     .where('user_id', userId)
 }
 
-function getSkillsForRankings(rankings){
-  const skillIds = rankings.map(ranking => rankings.skill_id)
-  return knex
-    .select('*')
-    .from('skills')
-    .whereIn('id', skillIds)
-}
-
-function getRankingsAndSillsForUser(){
-  return getRankingsForUser(userId)
-    .then(rankings =>
-      getSkillsForRankings(rankings)
-        .then(skills => ({skills, rankings}))
-    )
-}
-
 export default {
   users,
-  getUserById,
   skills,
+  getUserById,
+  getUserData,
 }

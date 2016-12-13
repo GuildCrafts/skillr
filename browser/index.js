@@ -12,7 +12,9 @@ render(
 // for debugging
 
 import state from './state'
+import moment from 'moment'
 window.DEBUG = {
   state,
   React,
+  moment,
 }

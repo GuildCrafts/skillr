@@ -15,6 +15,14 @@ router.post('/logout', (req, res, next) => {
   res.json(null)
 });
 
+router.get('/user-data', (req, res, next) => {
+  queries.getUserData(req.user.id)
+    .then((userData) => {
+      res.json(userData)
+    })
+    .catch(next)
+});
+
 router.get('/skills', (req, res, next) => {
   queries.skills()
     .then(skills => {
