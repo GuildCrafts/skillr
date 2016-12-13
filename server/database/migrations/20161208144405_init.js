@@ -20,6 +20,7 @@ exports.up = knex =>
       table.increments('id').primary()
       table.integer('skill_id').notNullable()
       table.integer('user_id').notNullable()
+      table.integer('value').notNullable()
       table.dateTime('at').notNullable()
       table.unique(['user_id', 'skill_id', 'at'])
     }),

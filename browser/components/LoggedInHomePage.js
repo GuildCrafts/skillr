@@ -8,7 +8,6 @@ export default class LoggedInHomePage extends Component {
     const { session } = this.props
     return <Layout className="HomePage" session={session}>
       <h1>Skillr</h1>
-      <InspectObject object={this.props} />
     </Layout>
   }
 }
