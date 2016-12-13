@@ -26,12 +26,14 @@ export default class SkillsPage extends Component {
       <div>Loading...</div>
 
     return <Layout className="SkillsPage" session={session}>
-      <h1>Skills</h1>
-      <Button
-        href="/api/skills/export"
-        externalLink
-        target="_blank"
-      >export</Button>
+      <div className="SkillsPage-header">
+        <h1>Skills</h1>
+        <Button
+          href="/api/skills/export"
+          externalLink
+          target="_blank"
+        >export</Button>
+      </div>
       {skillsTree}
     </Layout>
   }
