@@ -13,8 +13,13 @@ export default class SkillsTable extends Component {
   render(){
     const { skills, rankings, session } = this.props
 
-    const skillIds = rankings.map(ranking => ranking.skill_id)
-    const ourSkills = skills.filter(skill => skillIds.includes(skill.id))
+    const rankingsBytSkillId = {}
+    rankings.forEach(ranking => {
+      rankingsBytSkillId[ranking.skill_id] = rankingsBytSkillId[ranking.skill_id] || []
+      rankingsBytSkillId[ranking.skill_id].push(ranking)
+    })
+    const ourSkills = skills.filter(skill => skill.id in rankingsBytSkillId)
+
     const thisWeek = moment().startOf('week')
     // const firstWeek = moment.min(rankings.map(ranking => moment(ranking.at))).startOf('week')
     const firstWeek = moment(session.user.created_at).startOf('week')
@@ -26,46 +31,30 @@ export default class SkillsTable extends Component {
       weeks.push(firstWeek.clone().add(numberOfWeeks--, 'weeks'))
     }
 
-    // const headers = [<th key="skill">Skill</th>].concat(
-    //   weeks.map(week =>
-    //     <th key={week.valueOf()}>{week.format('DD/MM')}</th>
-    //   )
-    // )
+    const skillNameCells = ourSkills.map(skill =>
+      <div key={skill.id} className="SkillsTable-cell">{skill.name}</div>
+    )
 
-    // const rows = ourSkills.map(skill => {
-    //   let latestRanking
-    //   const rankingsForSkill = rankings.filter(ranking =>
-    //     ranking.skill_id === skill.id
-    //   )
-    //   const rankingColumns = weeks.reverse().map(week => {
-    //     const ranking = latestRanking = rankingsForSkill.find(r => moment(r.at).startOf('week').diff(week, 'weeks') === 0) || latestRanking
-    //     return <td key={week.valueOf()}><SillRanking ranking={ranking} /></td>
-    //   }).reverse()
-    //   return <tr key={skill.id}>
-    //     <td className="SkillsTable-skill-name"><div>{skill.name}</div></td>
-    //     {rankingColumns}
-    //   </tr>
-    // })
+    const rankingColumns = weeks.map(week => {
+      const rankingCells = ourSkills.map(skill => {
+        const rankings = rankingsBytSkillId[skill.id]
+        return <div key={skill.id} className="SkillsTable-cell">
+          <SillRanking />
+        </div>
+      })
+      return <div key={week.valueOf()} className="SkillsTable-column">
+        <div className="SkillsTable-cell">{week.format('DD/MM')}</div>
+        {rankingCells}
+      </div>
+    })
 
     return <div className="SkillsTable">
       <div className="SkillsTable-skills SkillsTable-column">
         <div className="SkillsTable-cell">Skills</div>
-        {ourSkills.map(skill =>
-          <div key={skill.id} className="SkillsTable-cell">{skill.name}</div>
-        )}
+        {skillNameCells}
       </div>
       <div className="SkillsTable-rankings">
-        {weeks.map(week =>
-          <div key={week.valueOf()} className="SkillsTable-column">
-            <div className="SkillsTable-cell">{week.format('DD/MM')}</div>
-            {ourSkills.map(skill => {
-              const ranking = null
-              return <div key={skill.id} className="SkillsTable-cell">
-                <SillRanking ranking={ranking} />
-              </div>
-            })}
-          </div>
-        )}
+        {rankingColumns}
       </div>
     </div>
   }
