@@ -10,7 +10,15 @@
     flex-wrap: nowrap
 
   &-cell
-    outline: 1px dotted green
+    border-right: 1px solid rgba(0,0,0,0.30)
+    // outline: 1px dotted green
+    &:nth-child(even)
+      background-color: rgba(0, 0, 255, 0.3)
+    &:nth-child(odd)
+      background-color: rgba(0, 0, 255, 0.4)
+    &:first-child
+      background-color: transparent
+      font-weight: 100
 
   &-rankings
     flex: 1 1 auto
@@ -30,6 +38,12 @@
   // &-skill-name
   //   > div
   //     white-space: nowrap
+  &-skills
+    width: 20vw
+    min-width: 100px
+    max-width: 250px
+    > .SkillsTable-cell
+      overflow: hidden
 
   &-SillRanking
     position: relative

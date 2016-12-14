@@ -50,7 +50,7 @@ export default class SkillsTable extends Component {
 
     return <div className="SkillsTable">
       <div className="SkillsTable-skills SkillsTable-column">
-        <div className="SkillsTable-cell">Skills</div>
+        <div className="SkillsTable-cell">Skill</div>
         {skillNameCells}
       </div>
       <div className="SkillsTable-rankings">
