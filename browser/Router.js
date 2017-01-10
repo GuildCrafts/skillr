@@ -6,7 +6,7 @@ import NotFoundPage      from './components/pages/NotFoundPage'
 import LoggedOutHomePage from './components/pages/LoggedOutHomePage'
 import LoggedInHomePage  from './components/pages/LoggedInHomePage'
 import SkillsPage        from './components/pages/SkillsPage'
-// import AdminSkillsPage   from './components/pages/AdminSkillsPage'
+import EditSkillsPage    from './components/pages/EditSkillsPage'
 
 
 export default class Router extends SimpleReactRouter {
@@ -15,7 +15,7 @@ export default class Router extends SimpleReactRouter {
     if (session.user){
       map('/', LoggedInHomePage)
       map('/skills', SkillsPage)
-      // map('/admin/skills', AdminSkillsPage)
+      map('/skills/edit', EditSkillsPage)
     }else{
       map('/', LoggedOutHomePage)
     }

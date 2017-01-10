@@ -20,16 +20,11 @@ exports.up = knex =>
       table.increments('id').primary()
       table.integer('skill_id').notNullable()
       table.integer('user_id').notNullable()
+      table.integer('year').notNullable()
+      table.integer('week').notNullable()
       table.integer('value').notNullable()
-      table.dateTime('at').notNullable()
-      table.unique(['user_id', 'skill_id', 'at'])
-    }),
-
-    knex.schema.createTable('hidden_skills', table => {
-      table.integer('skill_id').notNullable()
-      table.integer('user_id').notNullable()
-      table.unique(['user_id', 'skill_id'])
-    }),
+      table.unique(['user_id', 'skill_id', 'year', 'week'])
+    })
 
   ])
 
@@ -37,7 +32,6 @@ exports.down = knex =>
   Promise.all([
     knex.schema.dropTable('users'),
     knex.schema.dropTable('skills'),
-    knex.schema.dropTable('rankings'),
-    knex.schema.dropTable('hidden_skills'),
+    knex.schema.dropTable('rankings')
   ])
 

@@ -1,18 +1,19 @@
 import moment from 'moment'
 
+const YEAR = moment().year()
 const weeksAgo = n => moment().subtract(n, 'week').toDate()
 
 const skills = [
-  {id: 0, name: 'git'},
-  {id: 1, name: 'git clone'},
-  {id: 2, name: 'git shallow clone'},
-  {id: 3, name: 'git reset'},
-  {id: 4, name: 'git reset --hard'},
-  {id: 5, name: 'git reset --sort'},
-  {id: 6, name: 'git rebase'},
-  {id: 7, name: 'git rebase -i'},
-  {id: 8, name: 'git rebase --onto'},
-  {id: 9, name: 'for loops'},
+  {id: 0,  name: 'git'},
+  {id: 1,  name: 'git clone'},
+  {id: 2,  name: 'git shallow clone'},
+  {id: 3,  name: 'git reset'},
+  {id: 4,  name: 'git reset --hard'},
+  {id: 5,  name: 'git reset --sort'},
+  {id: 6,  name: 'git rebase'},
+  {id: 7,  name: 'git rebase -i'},
+  {id: 8,  name: 'git rebase --onto'},
+  {id: 9,  name: 'for loops'},
   {id: 10, name: 'reverse for loops'},
 ]
 
@@ -30,42 +31,45 @@ const rankings = [
   {
     user_id: 1,
     skill_id: 3,
+    year: YEAR,
+    week: 0,
     value: 0,
-    at: weeksAgo(7),
   },
   {
     user_id: 1,
     skill_id: 3,
+    year: YEAR,
+    week: 2,
     value: 1,
-    at: weeksAgo(6),
   },
   {
     user_id: 1,
     skill_id: 3,
+    year: YEAR,
+    week: 3,
     value: 1,
-    at: weeksAgo(4),
   },
   {
     user_id: 1,
     skill_id: 4,
+    year: YEAR,
+    week: 4,
     value: 1,
-    at: weeksAgo(4),
   },
   {
     user_id: 1,
     skill_id: 5,
+    year: YEAR,
+    week: 5,
     value: 1,
-    at: weeksAgo(4),
   },
   {
     user_id: 1,
     skill_id: 3,
+    year: YEAR,
+    week: 6,
     value: 2,
-    at: weeksAgo(3),
   },
-]
-
-const hidden_skills = [
 ]
 
 
@@ -89,7 +93,6 @@ exports.seed = (knex) => {
     batchInsert('users', users),
     batchInsert('skills', skills),
     batchInsert('rankings', rankings),
-    batchInsert('hidden_skills', hidden_skills),
   ])
 
 }

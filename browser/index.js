@@ -2,6 +2,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import './index.sass'
 import Root from './components/Root'
+import webSocket from './webSocket'
+
 
 render(
   <Root />,
@@ -13,8 +15,7 @@ render(
 
 import state from './state'
 import moment from 'moment'
-window.DEBUG = {
-  state,
-  React,
-  moment,
-}
+window.DEBUG = window.DEBUG || {}
+window.DEBUG.state = state;
+window.DEBUG.React = React;
+window.DEBUG.moment = moment;

@@ -1,0 +1,248 @@
+[
+  {
+    "name": "Chrome developer tools"
+  },
+  {
+    "name": "Chrome developer tools debugger"
+  },
+  {
+    "name": "HTTP"
+  },
+  {
+    "name": "React Components classes"
+  },
+  {
+    "name": "React Components functions"
+  },
+  {
+    "name": "heroku console"
+  },
+  {
+    "name": "HTTP verbs"
+  },
+  {
+    "name": "HTTP headers"
+  },
+  {
+    "name": "HTTP status codes"
+  },
+  {
+    "name": "HTTP streams"
+  },
+  {
+    "name": "Git"
+  },
+  {
+    "name": "git rebase"
+  },
+  {
+    "name": "git merge"
+  },
+  {
+    "name": "git cherry-pick"
+  },
+  {
+    "name": "reviewing a pull request"
+  },
+  {
+    "name": "deploying to heroku"
+  },
+  {
+    "name": "JavaScript"
+  },
+  {
+    "name": "JavaScript this"
+  },
+  {
+    "name": "JavaScript callbacks"
+  },
+  {
+    "name": "JavaScript promises"
+  },
+  {
+    "name": "JavaScript classes"
+  },
+  {
+    "name": "JavaScript constructors"
+  },
+  {
+    "name": "CSS inline vs block vs inline-block"
+  },
+  {
+    "name": "CSS flexbox"
+  },
+  {
+    "name": "CSS vendor specific …"
+  },
+  {
+    "name": "CSS float"
+  },
+  {
+    "name": "Node"
+  },
+  {
+    "name": "npm"
+  },
+  {
+    "name": "publishing a node package"
+  },
+  {
+    "name": "node package.json"
+  },
+  {
+    "name": "React"
+  },
+  {
+    "name": "Browser compatability "
+  },
+  {
+    "name": "creating a github pull request"
+  },
+  {
+    "name": "JavaScript == vs ==="
+  },
+  {
+    "name": "JavaScript typeof"
+  },
+  {
+    "name": "Staic vs non-static functions"
+  },
+  {
+    "name": "Iteration"
+  },
+  {
+    "name": "Composition"
+  },
+  {
+    "name": "Recursion"
+  },
+  {
+    "name": "HTML forms"
+  },
+  {
+    "name": "HTML formatting"
+  },
+  {
+    "name": "JavaScript formatting"
+  },
+  {
+    "name": "HTML Input types"
+  },
+  {
+    "name": "Form Validation"
+  },
+  {
+    "name": "The Box Model"
+  },
+  {
+    "name": "HTML positioning"
+  },
+  {
+    "name": "CSS text / type styling"
+  },
+  {
+    "name": "Web Fonts"
+  },
+  {
+    "name": "CSS Pseudo-selectors"
+  },
+  {
+    "name": "CSS Animations"
+  },
+  {
+    "name": "CSS transitions"
+  },
+  {
+    "name": "JavaScript ES5 syntax"
+  },
+  {
+    "name": "JavaScript ES6 syntax"
+  },
+  {
+    "name": "JavaScript ES7 (ES2016) syntax"
+  },
+  {
+    "name": "XHR / AJAX requests"
+  },
+  {
+    "name": "HTTP request anatomy"
+  },
+  {
+    "name": "HTTP responce anatomy"
+  },
+  {
+    "name": "Web sockets"
+  },
+  {
+    "name": "Object oriented vs functional"
+  },
+  {
+    "name": "[JavaScript design patterns]"
+  },
+  {
+    "name": "jQuery"
+  },
+  {
+    "name": "CSS @media queries"
+  },
+  {
+    "name": "CSS units"
+  },
+  {
+    "name": "CSS Bootstrap Framework"
+  },
+  {
+    "name": "CSS Foundation Framework"
+  },
+  {
+    "name": "git add --patch"
+  },
+  {
+    "name": "git push --force"
+  },
+  {
+    "name": "git log"
+  },
+  {
+    "name": "git branch"
+  },
+  {
+    "name": "git stash"
+  },
+  {
+    "name": "git remote"
+  },
+  {
+    "name": "forking a git repo"
+  },
+  {
+    "name": "webpack"
+  },
+  {
+    "name": "asset packaging"
+  },
+  {
+    "name": "JavaScript DOM api"
+  },
+  {
+    "name": "debugging HTTP requests"
+  },
+  {
+    "name": "brower "
+  },
+  {
+    "name": "mocha"
+  },
+  {
+    "name": "jasmine"
+  },
+  {
+    "name": "chai"
+  },
+  {
+    "name": "TDD development pattern"
+  },
+  {
+    "name": "[google searching]"
+  },
+]

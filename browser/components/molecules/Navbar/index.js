@@ -16,7 +16,9 @@ export default class Navbar extends Component {
       <div>
         <Button type={false} href="/">Skillr</Button>
         &nbsp;
-        <Button type={false} href="/skills">skills</Button>
+        <Button href="/skills">Skills</Button>
+        &nbsp;
+        <Button href="/skills/edit">Edit Skills</Button>
       </div>
       <div>
         <span>Welcome back {user.name}</span>
