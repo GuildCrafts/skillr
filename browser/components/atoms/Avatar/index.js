@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import Link from './Link'
-import './Button.sass'
+import Link from '../Link'
 
 class Button extends Component {
   static propTypes = {

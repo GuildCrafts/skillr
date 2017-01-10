@@ -3,7 +3,7 @@ import Router from '../Router'
 
 import state from '../state'
 import loadSession from '../actions/loadSession'
-import InspectObject from './InspectObject'
+import InspectObject from './utils/InspectObject'
 
 loadSession()
 

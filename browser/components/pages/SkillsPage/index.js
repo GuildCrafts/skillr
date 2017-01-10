@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import Layout from './Layout'
-import Button from './Button'
-import SkillsTable from './SkillsTable'
-import InspectObject from './InspectObject'
-import './SkillsPage.sass'
-import loadSkills from '../actions/loadSkills'
-import loadUserData from '../actions/loadUserData'
+import Button from '../../atoms/Button'
+import Layout from '../../molecules/Layout'
+import SkillsTable from '../../molecules/SkillsTable'
+import loadSkills from '../../../actions/loadSkills'
+import loadUserData from '../../../actions/loadUserData'
+import './index.sass'
 
 export default class SkillsPage extends Component {
   constructor(props){

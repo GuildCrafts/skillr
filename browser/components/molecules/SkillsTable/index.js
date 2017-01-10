@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React, { Component, PropTypes } from 'react'
-import Icon from './Icon'
-import './SkillsTable.sass'
+import Icon from '../../atoms/Icon'
+import './index.sass'
 
 
 export default class SkillsTable extends Component {
