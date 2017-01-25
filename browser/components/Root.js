@@ -5,7 +5,7 @@ import state from '../state'
 import loadSession from '../actions/loadSession'
 import InspectObject from './utils/InspectObject'
 
-loadSession()
+// loadSession()
 
 export default class Root extends Component {
 

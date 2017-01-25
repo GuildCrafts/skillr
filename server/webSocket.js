@@ -1,8 +1,16 @@
 import SocketIO from 'socket.io'
 import queries from './queries'
+import SocketIORedis from 'socket.io-redis'
 
 module.exports = (server, httpServer) => {
   const webSocket = server.webSocket = new SocketIO(httpServer)
+
+  webSocket.adapter(
+    SocketIORedis({
+      host: 'localhost',
+      port: 6379,
+    })
+  )
 
   webSocket.use(function(socket, next) {
     server.sessionMiddleware(socket.request, socket.request.res, next)

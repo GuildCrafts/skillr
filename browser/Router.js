@@ -12,13 +12,13 @@ import EditSkillsPage    from './components/pages/EditSkillsPage'
 export default class Router extends SimpleReactRouter {
   getRoutes(map, props){
     const { session } = props
-    if (session.user){
-      map('/', LoggedInHomePage)
-      map('/skills', SkillsPage)
-      map('/skills/edit', EditSkillsPage)
-    }else{
+    // if (session.user){
+    //   map('/', LoggedInHomePage)
+    //   map('/skills', SkillsPage)
+    //   map('/skills/edit', EditSkillsPage)
+    // }else{
       map('/', LoggedOutHomePage)
-    }
+    // }
     map('/:path*', NotFoundPage)
   }
 }
