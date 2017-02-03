@@ -1,14 +1,13 @@
 const webSocket = require('socket.io-client')(location.origin)
 
+console.log('websocket file')
 webSocket.on('connected', (data) => {
   console.log('webSocket', 'connected', data)
-  webSocket.emit('subscribe', {
-    resource: 'events'
-  })
+  webSocket.emit('loadAllSkills')
 })
 
-webSocket.on('skills', (skills) => {
-  console.log('webSocket: skills', skills)
+webSocket.on('updateSkills', (skills) => {
+  console.log('webSocket: updateSkills', skills)
 })
 
 webSocket.on('skill update', (update) => {

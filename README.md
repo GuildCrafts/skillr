@@ -25,6 +25,14 @@ As a logged in user I can…
 - toggle between days, weeks, months and years
 
 
+## Skills
+
+A skill is:
+
+- a title
+- a description (markdown)
+
+
 
 ## Architecture
 
