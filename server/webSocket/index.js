@@ -78,7 +78,7 @@ const initializeConnection = function(socket){
 
   initializeMessageHandlers(on, emit, broadcast, broadcastToAll, reportError)
 
-  emit('connected')
+  emit('sessionUpdate', { user })
 }
 
 
