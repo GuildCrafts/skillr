@@ -28,8 +28,6 @@ export default class Root extends Component {
         <h1>ERROR:</h1>
         <InspectObject object={this.state.loadSessionError} />
       </div>
-    if (this.state.session)
-      return <Router {...this.state} />
-    return <div>loading...</div>
+    return <Router {...this.state} />
   }
 }
