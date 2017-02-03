@@ -1,23 +1,21 @@
+import logger from '../logger'
+import state from '../state'
+
 export const initializeMessageHandlers = (connection) => {
   const { on, emit, reportError } = connection
 
-  on('errorOccured', (error) => {
-    console.log('webSocket', 'errorOccured', error)
-  })
-
-  on('connected', (data) => {
-    console.log('webSocket', 'connected', data)
-  })
-
   on('sessionUpdate', (session) => {
     console.log('webSocket: sessionUpdate', session)
+    state.set({session})
   })
 
-  on('updateSkills', (skills) => {
-    console.log('webSocket: updateSkills', skills)
+  on('updateSkills', (updatedSkills) => {
+    console.log('webSocket: updateSkills', updatedSkills)
+    const skills = state.get().skills || {}
+    updatedSkills.forEach(skill => { skills[skill.id] = skill })
+    state.set({skills})
   })
 
   // TMP
   emit('loadAllSkills')
-  emit('pretendToBrake')
 }

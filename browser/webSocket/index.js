@@ -29,6 +29,10 @@ const emit = (eventType, payload) => {
 }
 
 
+on('errorOccured', (error) => {
+  reportError(error.context, error)
+})
+
 initializeMessageHandlers({ reportError, on, emit })
 // module.exports = webSocket
 
