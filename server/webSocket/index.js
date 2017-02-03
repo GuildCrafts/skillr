@@ -3,6 +3,7 @@ import SocketIORedis from 'socket.io-redis'
 import logger from '../logger'
 import { sessionMiddleware } from '../webServer/authentication'
 import Connection from './connection'
+import { initializeMessageHandlers } from './messages'
 
 export const initializeWebSocket = (server, httpServer) => {
   const io = new SocketIO(httpServer)
@@ -46,7 +47,13 @@ const initializeConnection = function(socket){
     socket.on(eventType, payload => {
       logger.info(`SERVER SOCKET RCV "${eventType}"`)
       logger.silly(JSON.stringify({eventType, payload}))
-      return handler(payload)
+      const promise = handler(payload)
+      if (!promise || !promise.catch)
+        throw new Error(`webSocket message handler for message "${eventType}" did not return a promise`)
+      promise.catch(error => {
+        logger.error(`error on "${eventType}"\n${JSON.stringify(error)}`)
+        reportError(`error on "${eventType}"`, error)
+      })
     })
   }
 
@@ -62,11 +69,6 @@ const initializeConnection = function(socket){
     socket.broadcast.emit(eventType, payload)
   }
 
-  const broadcastToAll = (type, prrr) => {
-    emit(type, prrr)
-    broadcast(type, prrr)
-  }
-
   const reportError = (context, error) => {
     error = Object.assign({}, error, {
       context,
@@ -76,20 +78,16 @@ const initializeConnection = function(socket){
     emit('errorOccured', {error})
   }
 
-  initializeMessageHandlers(on, emit, broadcast, broadcastToAll, reportError)
+  initializeMessageHandlers({
+    on,
+    emit,
+    broadcast,
+    reportError,
+    user,
+    session,
+  })
 
   emit('sessionUpdate', { user })
 }
 
 
-const initializeMessageHandlers = (on, emit, broadcast, broadcastToAll, reportError) => {
-
-  on('loadAllSkills', payload => {
-    emit('updateSkills', {
-      0: {id: 0},
-      1: {id: 1},
-      2: {id: 2},
-    })
-  })
-
-}

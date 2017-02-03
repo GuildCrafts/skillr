@@ -1,5 +1,9 @@
 const webSocket = require('socket.io-client')(location.origin)
 
+webSocket.on('errorOccured', (error) => {
+  console.log('webSocket', 'errorOccured', error)
+})
+
 webSocket.on('connected', (data) => {
   console.log('webSocket', 'connected', data)
 })
@@ -14,6 +18,7 @@ webSocket.on('updateSkills', (skills) => {
 
 // TMP
 webSocket.emit('loadAllSkills')
+webSocket.emit('pretendToBrake')
 
 // module.exports = webSocket
 

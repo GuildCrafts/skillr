@@ -1,51 +1,53 @@
 import knex from '../knex'
 
-function users(){
-  return knex
-    .select('*')
-    .from('users')
-}
+export default class Queries {
 
-function getUserById(userId){
-  return knex
-    .select('*')
-    .from('users')
-    .where('id', userId)
-    .first()
-}
+  constructor(currentUser){
+    this.knex = knex
+    this.currentUser = currentUser
+  }
 
-function skills(){
-  return knex
-    .select('*')
-    .from('skills')
-}
+  allUsers(){
+    return this.knex
+      .select('*')
+      .from('users')
+  }
 
-function getUserData(userId){
-  return Promise.all([
-    getRankingsForUser(userId),
-    getHiddenSkillsForUser(userId),
-  ]).then(([rankings, hiddenSkills]) => (
-    {rankings, hiddenSkills}
-  ))
-}
+  getUserById(userId){
+    return this.knex
+      .select('*')
+      .from('users')
+      .where('id', userId)
+      .first()
+  }
 
-function getRankingsForUser(userId){
-  return knex
-    .select('*')
-    .from('rankings')
-    .where('user_id', userId)
-}
+  allSkills(){
+    return this.knex
+      .select('*')
+      .from('skills')
+  }
 
-function getHiddenSkillsForUser(userId){
-  return knex
-    .select('*')
-    .from('hidden_skills')
-    .where('user_id', userId)
-}
+  getUserData(userId){
+    return Promise.all([
+      this.getRankingsForUser(userId),
+      this.getHiddenSkillsForUser(userId),
+    ]).then(([rankings, hiddenSkills]) => {
+      return { rankings, hiddenSkills }
+    })
+  }
 
-export default {
-  users,
-  skills,
-  getUserById,
-  getUserData,
+  getRankingsForUser(userId){
+    return this.knex
+      .select('*')
+      .from('rankings')
+      .where('user_id', userId)
+  }
+
+  getHiddenSkillsForUser(userId){
+    return this.knex
+      .select('*')
+      .from('hidden_skills')
+      .where('user_id', userId)
+  }
+
 }
