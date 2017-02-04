@@ -23,11 +23,6 @@ export default class Root extends Component {
 
   render(){
     console.info('Root#render', this.state)
-    if (this.state.loadSessionError)
-      return <div>
-        <h1>ERROR:</h1>
-        <InspectObject object={this.state.loadSessionError} />
-      </div>
     return <Router {...this.state} />
   }
 }

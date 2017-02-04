@@ -1,39 +1,48 @@
 import knex from '../knex'
+import logger from '../logger'
 
-function firstRecord(records){
-  return records[0]
-}
+export default class Commands {
 
-function createRecord(table, attributes){
-  return knex
-    .table(table)
-    .insert(attributes)
-    .returning('*')
-    .then(firstRecord)
-}
-
-function createUser(attributes){
-  attributes.created_at = attributes.updated_at = new Date
-  return createRecord('users', attributes)
-}
-
-function findOrCreateUserFromGithubProfile(githubProfile){
-  console.log('??', githubProfile)
-  const github_id = githubProfile.id
-  const userAttributes = {
-    github_id: github_id,
-    name: githubProfile.displayName,
-    email: githubProfile.emails[0].value,
-    avatar_url: githubProfile.photos[0].value,
+  constructor(currentUser){
+    this.knex = knex
+    this.currentUser = currentUser
   }
-  return knex
-    .table('users')
-    .where('github_id', github_id)
-    .first('*')
-    .then(user => user ? user : createUser(userAttributes))
+
+  createRecord(table, attributes){
+    return knex
+      .table(table)
+      .insert(attributes)
+      .returning('*')
+      .first()
+  }
+
+  createUser(attributes){
+    logger.info(`createUser ${JSON.stringify(attributes)}`)
+    attributes.created_at = attributes.updated_at = new Date
+    return this.createRecord('users', attributes)
+  }
+
+  findOrCreateUserFromGithubProfile(githubProfile){
+    console.log('??', githubProfile)
+    const github_id = githubProfile.id
+    const userAttributes = {
+      github_id: github_id,
+      name: githubProfile.displayName,
+      email: githubProfile.emails[0].value,
+      avatar_url: githubProfile.photos[0].value,
+    }
+    logger.info(`findOrCreateUserFromGithubProfile ${JSON.stringify(userAttributes)}`)
+    return knex
+      .table('users')
+      .where('github_id', github_id)
+      .first('*')
+      .then(user => user ? user : this.createUser(userAttributes))
+  }
+
 }
 
 
-export default {
-  findOrCreateUserFromGithubProfile,
-}
+
+// export default {
+//   findOrCreateUserFromGithubProfile,
+// }

@@ -4,6 +4,7 @@ import logger from '../logger'
 import { sessionMiddleware } from '../webServer/authentication'
 import Connection from './connection'
 import { initializeMessageHandlers } from './messages'
+import Queries from '../queries'
 
 export const initializeWebSocket = (server, httpServer) => {
   const io = new SocketIO(httpServer)
@@ -17,24 +18,25 @@ export const initializeWebSocket = (server, httpServer) => {
 const loadCurrentUser = function(socket, done){
   const session = socket.request.session
   socket.session = session
-  done()
-  // const currentUserGithubId = (
-  //   session &&
-  //   session.passport &&
-  //   session.passport.user &&
-  //   session.passport.user.github_id
-  // )
 
-  // if (currentUserGithubId){
-  //   new Queries().getUserByGithubId(session.passport.user.github_id)
-  //     .then(user => {
-  //       socket.user = user
-  //       done()
-  //     })
-  // } else {
-  //   socket.user = null
-  //   done()
-  // }
+  if (
+    session &&
+    session.passport &&
+    session.passport.user &&
+    'id' in session.passport.user
+  ){
+    new Queries().getUserById(session.passport.user.id)
+      .then(user => {
+        socket.user = user
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  } else {
+    socket.user = null
+    done()
+  }
 }
 
 
@@ -87,7 +89,7 @@ const initializeConnection = function(socket){
     session,
   })
 
-  emit('sessionUpdate', { user })
+  emit('sessionUpdate', { ...session, user })
 }
 
 

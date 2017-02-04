@@ -1,23 +1,33 @@
 import passportGithub from 'passport-github'
 import passport from 'passport'
 import cookieSession from 'cookie-session'
-import queries from '../queries'
-import commands from '../commands'
+import Queries from '../queries'
+import Commands from '../commands'
 
 export const sessionMiddleware = cookieSession({
   name: 'session',
   keys: [process.env.SESSION_KEY],
 })
 
-const findOrCreateUserFromGithubProfile = (accessToken, refreshToken, profile, cb) => {
-  cb(null, {FAKE_USER: 42})
-  // commands.findOrCreateUserFromGithubProfile(profile)
-  //   .then(user => {
-  //     cb(undefined, user);
-  //   })
-  //   .catch(error => {
-  //     cb(error)
-  //   })
+const findOrCreateUserFromGithubProfile = (accessToken, refreshToken, profile, callback) => {
+  console.log('??', githubProfile)
+  const github_id = githubProfile.id
+  const userAttributes = {
+    github_id: github_id,
+    name: githubProfile.displayName,
+    email: githubProfile.emails[0].value,
+    avatar_url: githubProfile.photos[0].value,
+  }
+  return knex
+    .table('users')
+    .where('github_id', github_id)
+    .first('*')
+    .then(user => {
+        user ? user : createUser(userAttributes)
+    })
+    .then(user => {
+      callback(done)
+    })
 }
 
 passport.use(new passportGithub.Strategy({
@@ -25,7 +35,15 @@ passport.use(new passportGithub.Strategy({
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL:  process.env.GITHUB_CALLBACK,
   },
-  findOrCreateUserFromGithubProfile
+  function(accessToken, refreshToken, profile, callback){
+    (new Commands).findOrCreateUserFromGithubProfile(profile)
+      .then(user => {
+        callback(null, user)
+      })
+      .catch(error => {
+        callback(error)
+      })
+  }
 ));
 
 passport.serializeUser(function(user, done) {
@@ -33,9 +51,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-  queries.getUserById(user.id)
-    .then( user  => done(null, user))
-    .catch(error => done(error))
+  done(null, user)
 });
 
 
