@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import Button from '../../atoms/Button'
 import Avatar from '../../atoms/Avatar'
-import logout from '../../../actions/logout'
+import { logout } from '../../../actions'
 import './index.sass'
 
 export default class Navbar extends Component {

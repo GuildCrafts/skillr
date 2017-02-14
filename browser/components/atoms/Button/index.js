@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import Link from '../Link'
 import './index.sass'
 
-class Button extends Component {
+export default class Button extends Component {
   static propTypes = {
     type: PropTypes.oneOfType([
       PropTypes.string,
@@ -42,5 +42,3 @@ class Button extends Component {
       <button ref="button" {...props}>{this.props.children}</button>
   }
 }
-
-export default Button

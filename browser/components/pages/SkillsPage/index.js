@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import Button from '../../atoms/Button'
 import Layout from '../../molecules/Layout'
 import SkillsTable from '../../molecules/SkillsTable'
-import loadSkills from '../../../actions/loadSkills'
-import loadUserData from '../../../actions/loadUserData'
+import { loadSkills, loadUserData } from '../../../actions'
 import './index.sass'
 
 export default class SkillsPage extends Component {

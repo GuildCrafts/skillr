@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Router from '../Router'
 import state from '../state'
-import loadSession from '../actions/loadSession'
 import InspectObject from './utils/InspectObject'
 
 export default class Root extends Component {

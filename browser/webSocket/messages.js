@@ -7,6 +7,9 @@ export const initializeMessageHandlers = (connection) => {
   on('sessionUpdate', (session) => {
     console.log('webSocket: sessionUpdate', session)
     state.set({session})
+    if (session && session.user){
+      emit('loadAllSkills')
+    }
   })
 
   on('updateSkills', (updatedSkills) => {
@@ -16,6 +19,4 @@ export const initializeMessageHandlers = (connection) => {
     state.set({skills})
   })
 
-  // TMP
-  emit('loadAllSkills')
 }

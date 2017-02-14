@@ -22,7 +22,7 @@ const on = (eventType, handler) => {
   })
 }
 
-const emit = (eventType, payload) => {
+export const emit = (eventType, payload) => {
   logger.info(`BROWSER SOCKET EMIT "${eventType}"`)
   logger.debug(JSON.stringify({eventType, payload}))
   socket.emit(eventType, payload)
