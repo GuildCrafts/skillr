@@ -13,6 +13,7 @@ exports.up = knex =>
     knex.schema.createTable('skills', table => {
       table.increments('id').primary()
       table.string('name').notNullable().unique()
+      table.string('slug').notNullable().unique()
       table.text('description')
       table.timestamps()
     }),
